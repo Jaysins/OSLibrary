@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+    <br>
+    <br>
+
+    <footer class="site-footer">
+        <div class="container">
+            <form action="{{ url_for('add') }}" method="post" enctype="multipart/form-data" id="form"
+                  class="newsletter-form">
+                <input type="text" placeholder="Enter song title" name="title">
+                <input type="text" placeholder="Enter song artist" name="artist">
+                <input type="text" placeholder="Enter song year" name="year">
+                <input type="file" name="media">
+                <input type="submit" class="button cut-corner" value="Add Song">
+            </form> <!-- .newsletter-form -->
+
+        </div>
+
+    </footer>
+{% endblock %}
+
+{% block script %}
+    <script>
+        var form = $("#form");
+        form.submit(function (e) {
+            if (document.getElementsByName('media')[0].value === '') {
+                alert("please select song to upload");
+                return false
+            }
+        })
+    </script>
+{% endblock %}
+
+

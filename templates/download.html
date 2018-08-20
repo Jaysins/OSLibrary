@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+
+{% block style %}
+    <style>
+        audio {
+            width: 150px;
+            display: block;
+            margin: 20px;
+        }
+
+        audio:nth-child(2) {
+            width: 250px;
+        }
+
+        audio:nth-child(3) {
+            width: 500px;
+        }
+    </style>
+
+{% endblock %}
+{% block main %}
+    <main class="main-content">
+        <div class="fullwidth-block download">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+
+                        <h2 class="page-title">Our Music</h2>
+                        {% if display == 'yes' %}
+                            {% for song in songs %}
+                                <div class="item">
+                                    <h3 class="item-title">{{ song.title }}</h3>
+                                    <span class="year">{{ song.year }}</span>
+                                    <a href="#" class="button small primary">Download</a>
+                                    <span class="play" id="static/media/{{ song.source }}">
+									<a class="button small secondary">Listen to</a>
+								</span>
+                                    {#                        <div class="social-share">#}
+                                    <a href="{{ url_for('edit', info=song.id) }}" class="button small primary">Edit</a>
+
+                                    <span class="delete" id="{{ song.id }}">
+                                    <a class="button small primary">Delete
+                                    </a>
+                                </span>
+
+                                    {#                            <a href="#"><i class="fa fa-facebook"></i></a>#}
+                                    {#                            <a href="#"><i class="fa fa-twitter"></i></a>#}
+                                    {#                            <a href="#"><i class="fa fa-google-plus"></i></a>#}
+                                    {#                            <a href="#"><i class="fa fa-pinterest"></i></a>#}
+                                    {#                        </div>#}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="item">
+                                No Songs yet
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div> <!-- .testimonial-section -->
+
+
+    </main> <!-- .main-content -->
+
+{% endblock %}
+{% block script %}
+    <script>
+        var span_id = $(".play");
+        span_id.click(function () {
+            if (this.children[0].id === 'playing') {
+                return
+            }
+            var check_audio = document.getElementById('playing');
+            this.className = 'now-playing';
+            if (check_audio !== null) {
+                check_audio.parentElement.innerHTML = "<a class='button small secondary'>Listen to</a>";
+                this.className = 'play'
+            }
+            this.innerHTML = "<audio id='playing' controls='controls' src=" + this.id + "></audio>"
+        });
+
+        var delete_btns = $(".delete");
+        delete_btns.click(function () {
+            var check = confirm('Are you sure you want to delete');
+            var elem = this;
+            if (check === true) {
+                $.getJSON(window.location.protocol + '//' + document.domain + ':' + window.location.port + '/delete', {
+                    status: 'delete',
+                    id: this.id
+                }, function (data) {
+                    console.log(data);
+                    elem.parentElement.className = '';
+                    elem.parentElement.innerHTML = '';
+                })
+
+            }
+        });
+    </script>
+{% endblock %}
+

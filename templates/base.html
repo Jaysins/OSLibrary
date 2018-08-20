@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		
+		<title>Band Template</title>
+		<!-- Loading third party fonts -->
+		<!-- <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900" rel="stylesheet" type="text/css"> -->
+		<link href="{{url_for('static', filename='fonts/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+		
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+        <![endif]-->
+        {% block style %}
+        {% endblock %}
+
+    </head>
+    
+	<body class="header-collapse">
+		<div id="site-content">
+			<header class="site-header">
+				<div class="container">
+					<a href="{{ url_for('index') }}" id="branding">
+                        My Personal Library
+{#						<img src="{{url_for('static', filename='dummy/logo.png')}}" alt="Site Title">#}
+{#						<small class="site-description">Slogan goes here</small>#}
+					</a> <!-- #branding -->
+					
+					<nav class="main-navigation">
+						<button type="button" class="toggle-menu"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="{{ url_for('index') }}">Home</a></li>
+							<li class="menu-item"><a href="{{ url_for('add') }}">Add Song</a></li>
+{#							<li class="menu-item"><a href="gallery.html">Gallery</a></li>#}
+							<li class="menu-item"><a href="{{url_for('library')}}">Library</a></li>
+{#							<li class="menu-item"><a href="blog.html">Blog</a></li>#}
+{#							<li class="menu-item"><a href="contact.html">Contact</a></li>#}
+						</ul> <!-- .menu -->
+					</nav> <!-- .main-navigation -->
+					<div class="mobile-menu"></div>
+				</div>
+            </header> <!-- .site-header -->
+            {% block main %}
+            {% endblock %}
+        </div>
+		<footer class="site-footer">
+                    <div class="container">			
+                        <address>
+                            <p><a href="https://its-jason.herokuapp.com">click to see adddress</a> <br><a href="tel:+2349083551998">(234)908-355-1998</a> <br> <a href="mailto:info@jaysinscars@gmail.com">info@jaysinscars@gmail.com</a></p>
+                        </address>
+                        <div class="social-links">
+                            <a href="https://facebook.com/jaysins.scars"><i class="fa fa-facebook-square"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div> <!-- .social-links -->
+                        
+                        <p class="copy">Copyright 2014 Company Name. Co-Designed by Themezy. All right reserved</p>
+                    </div>
+        </footer> <!-- .site-footer -->
+        <script src="{{url_for('static', filename='js/jquery-1.11.1.min.js')}}"></script>		
+        <script src="{{url_for('static', filename='js/plugins.js')}}"></script>
+        <script src="{{url_for('static', filename='js/app.js')}}"></script>		
+
+        {% block script %}
+        {% endblock %}
+    </body>
+</html>
