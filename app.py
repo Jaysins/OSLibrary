@@ -49,10 +49,17 @@ def error_page(message):
 @app.route('/delete')
 def delete():
     song_info = Library.query.filter_by(id=request.args['id']).first()
-    os.remove(os.path.join(app.config['UPLOADED_MEDIA_DEST'], song_info.source))
-    db.session.delete(song_info)
-    db.session.commit()
-    print('deleted')
+    if song_info:
+        db.session.delete(song_info)
+        db.session.commit()
+        print('deleted')        
+        try:
+            os.remove(os.path.join(app.config['UPLOADED_MEDIA_DEST'], song_info.source))
+        except Exception as e:
+            print(e)
+            pass
+    else:
+        return(redirect(url_for('error', message='Some error occured')))
     return jsonify({'response': 'deleted'})
 
 
