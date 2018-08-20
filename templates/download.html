@@ -78,7 +78,7 @@
                 check_audio.parentElement.innerHTML = "<a class='button small secondary'>Listen to</a>";
                 this.className = 'play'
             }
-            this.innerHTML = "<audio id='playing' controls='controls' src=" + this.id + "></audio>"
+            this.innerHTML = "<audio id='playing' preload='auto' controls='controls' src=" + this.id + "></audio>"
         });
 
         var delete_btns = $(".delete");
