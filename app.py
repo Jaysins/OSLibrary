@@ -7,7 +7,10 @@ app = Flask(__name__)
 
 media = UploadSet('media', AUDIO)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+file_path = os.path.abspath(os.getcwd()) + "\service.db"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + file_path
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['UPLOADED_MEDIA_DEST'] = 'static/media'
 
